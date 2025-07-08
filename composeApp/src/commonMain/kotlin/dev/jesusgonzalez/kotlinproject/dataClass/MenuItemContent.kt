@@ -7,4 +7,5 @@ data class MenuItemContent(
   val title: String,
   val color: Color,
   val icon: DrawableResource,
+  val onClick: () -> Unit = {}
 )

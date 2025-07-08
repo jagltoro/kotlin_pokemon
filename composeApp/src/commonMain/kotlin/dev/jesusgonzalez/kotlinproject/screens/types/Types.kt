@@ -1,7 +1,6 @@
-package dev.jesusgonzalez.kotlinproject.screens.home
+package dev.jesusgonzalez.kotlinproject.screens.types
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
@@ -10,23 +9,18 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
-import dev.jesusgonzalez.kotlinproject.screens.home.components.MenuItem
 
 @Composable
-fun Home(navController: NavController) {
-  Column(
+fun Types() {
+  Box(
     modifier = Modifier
       .fillMaxSize()
-      .padding(8.dp),
-    verticalArrangement = Arrangement.Center
   ) {
     Text(
-      text = "What are you looking for",
+      text = "TTEMS",
       style = MaterialTheme.typography.titleLarge,
       color = Color(0xFFFFFFFF),
       modifier = Modifier.padding(8.dp)
     )
-    MenuItem(navController)
   }
 }
