@@ -7,6 +7,8 @@ plugins {
   alias(libs.plugins.composeMultiplatform)
   alias(libs.plugins.composeCompiler)
   alias(libs.plugins.kotlin.serialization)
+  alias(libs.plugins.room)
+  alias(libs.plugins.ksp)
 }
 
 kotlin {
@@ -47,12 +49,18 @@ kotlin {
       implementation(libs.androidx.lifecycle.runtimeCompose)
 
       implementation(libs.bundles.ktor)
+      implementation(libs.coil.compose)
+      implementation(libs.coil.network.ktor)
+
       implementation(libs.androidx.navigation.compose)
+
+      implementation(libs.androidx.room.runtime)
+      implementation(libs.sqlite.bundled)
     }
     commonTest.dependencies {
       implementation(libs.kotlin.test)
     }
-    nativeMain.dependencies {
+    iosMain.dependencies {
       implementation(libs.ktor.client.darwin)
     }
   }
@@ -87,5 +95,9 @@ android {
 
 dependencies {
   debugImplementation(compose.uiTooling)
+  ksp(libs.androidx.room.compiler)
 }
 
+room {
+  schemaDirectory("$projectDir/schemas")
+}

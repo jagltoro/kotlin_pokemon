@@ -8,11 +8,13 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.toRoute
 import dev.jesusgonzalez.kotlinproject.screens.favorites.Favorites
 import dev.jesusgonzalez.kotlinproject.screens.home.Home
 import dev.jesusgonzalez.kotlinproject.screens.items.Items
 import dev.jesusgonzalez.kotlinproject.screens.movements.Movements
 import dev.jesusgonzalez.kotlinproject.screens.pokemon.Pokemon
+import dev.jesusgonzalez.kotlinproject.screens.pokemon.PokemonDetails
 import dev.jesusgonzalez.kotlinproject.screens.types.Types
 
 @Composable
@@ -20,26 +22,30 @@ fun Navigation() {
   val navController = rememberNavController()
   NavHost(
     navController = navController,
-    startDestination = Screens.Home.name,
+    startDestination = Home,
     modifier = Modifier.background(MaterialTheme.colorScheme.background).safeContentPadding()
   ) {
-    composable(route = Screens.Home.name) {
+    composable<Home> {
       Home(navController = navController)
     }
-    composable(route = Screens.Pokemon.name) {
-      Pokemon()
+    composable<Pokemon> {
+      Pokemon(navController = navController)
     }
-    composable(route = Screens.Types.name) {
+    composable<Types> {
       Types()
     }
-    composable(route = Screens.Movements.name) {
+    composable<Movements> {
       Movements()
     }
-    composable(route = Screens.Favorites.name) {
+    composable<Favorites> {
       Favorites()
     }
-    composable(route = Screens.Items.name) {
+    composable<Items> {
       Items()
+    }
+    composable<PokemonDetails> { entry ->
+      val pokemon: PokemonDetails = entry.toRoute()
+      PokemonDetails(id = pokemon.id)
     }
   }
 }

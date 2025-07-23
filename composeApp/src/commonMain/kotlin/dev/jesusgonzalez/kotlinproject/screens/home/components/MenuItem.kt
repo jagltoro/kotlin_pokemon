@@ -25,7 +25,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import dev.jesusgonzalez.kotlinproject.dataClass.MenuItemContent
-import dev.jesusgonzalez.kotlinproject.navigation.Screens
+import dev.jesusgonzalez.kotlinproject.navigation.Favorites
+import dev.jesusgonzalez.kotlinproject.navigation.Items
+import dev.jesusgonzalez.kotlinproject.navigation.Movements
+import dev.jesusgonzalez.kotlinproject.navigation.Pokemon
+import dev.jesusgonzalez.kotlinproject.navigation.Types
 import kotlinproject.composeapp.generated.resources.Res
 import kotlinproject.composeapp.generated.resources.backpack
 import kotlinproject.composeapp.generated.resources.fight
@@ -41,22 +45,22 @@ fun MenuItem(navController: NavController) {
       "Items",
       Color(0xFFF7776A),
       Res.drawable.backpack,
-      onClick = { navController.navigate(Screens.Items.name) }),
+      onClick = { navController.navigate(Items) }),
     MenuItemContent(
       "Moves",
       Color(0xFF58A9F4),
       Res.drawable.fight,
-      onClick = { navController.navigate(Screens.Movements.name) }),
+      onClick = { navController.navigate(Movements) }),
     MenuItemContent(
       "Types",
       Color(0xFFFFCE4B),
       Res.drawable.thunder,
-      onClick = { navController.navigate(Screens.Types.name) }),
+      onClick = { navController.navigate(Types) }),
     MenuItemContent(
       "Favorite",
       Color(0xFFB963D0),
       Res.drawable.heart,
-      onClick = { navController.navigate(Screens.Favorites.name) }),
+      onClick = { navController.navigate(Favorites) }),
   )
   LazyVerticalGrid(
     columns = GridCells.Fixed(2),
@@ -71,7 +75,7 @@ fun MenuItem(navController: NavController) {
           .clip(RoundedCornerShape(16.dp))
           .background(Color(0xFF5DBE62))
           .clickable(enabled = true, onClick = {
-            navController.navigate(Screens.Pokemon.name)
+            navController.navigate(Pokemon)
           }),
         contentAlignment = Alignment.BottomStart
       ) {

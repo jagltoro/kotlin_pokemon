@@ -8,7 +8,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import dev.jesusgonzalez.kotlinproject.screens.home.components.MenuItem
@@ -24,7 +23,7 @@ fun Home(navController: NavController) {
     Text(
       text = "What are you looking for",
       style = MaterialTheme.typography.titleLarge,
-      color = Color(0xFFFFFFFF),
+      color = MaterialTheme.colorScheme.onBackground,
       modifier = Modifier.padding(8.dp)
     )
     MenuItem(navController)
