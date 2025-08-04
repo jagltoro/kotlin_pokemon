@@ -30,6 +30,7 @@ import dev.jesusgonzalez.kotlinproject.navigation.Items
 import dev.jesusgonzalez.kotlinproject.navigation.Movements
 import dev.jesusgonzalez.kotlinproject.navigation.Pokemon
 import dev.jesusgonzalez.kotlinproject.navigation.Types
+import dev.jesusgonzalez.kotlinproject.theme.Paddings
 import kotlinproject.composeapp.generated.resources.Res
 import kotlinproject.composeapp.generated.resources.backpack
 import kotlinproject.composeapp.generated.resources.fight
@@ -69,10 +70,10 @@ fun MenuItem(navController: NavController) {
     item(span = { GridItemSpan(maxLineSpan) }) {  // let item span across all columns in Grid
       Box(
         modifier = Modifier
-          .padding(end = 8.dp, start = 8.dp, bottom = 16.dp)
+          .padding(end = Paddings.medium, start = Paddings.medium, bottom = Paddings.large)
           .fillMaxWidth()
           .height(120.dp)
-          .clip(RoundedCornerShape(16.dp))
+          .clip(RoundedCornerShape(Paddings.large))
           .background(Color(0xFF5DBE62))
           .clickable(enabled = true, onClick = {
             navController.navigate(Pokemon)
@@ -81,7 +82,7 @@ fun MenuItem(navController: NavController) {
       ) {
         Box(
           modifier = Modifier
-            .padding(16.dp)
+            .padding(Paddings.large)
         ) {
           Text(
             text = "Pokémon",
@@ -118,17 +119,17 @@ fun MenuItemRenderer(
 ) {
   Box(
     modifier = Modifier
-      .padding(end = 8.dp, start = 8.dp, bottom = 16.dp)
+      .padding(end = Paddings.medium, start = Paddings.medium, bottom = Paddings.large)
       .fillMaxWidth()
       .height(120.dp)
-      .clip(RoundedCornerShape(16.dp))
+      .clip(RoundedCornerShape(Paddings.large))
       .background(item.color)
       .clickable(enabled = true, onClick = item.onClick),
     contentAlignment = Alignment.BottomStart
   ) {
     Box(
       modifier = Modifier
-        .padding(16.dp)
+        .padding(Paddings.large)
     ) {
       Text(
         text = item.title,

@@ -1,7 +1,6 @@
 package dev.jesusgonzalez.kotlinproject.networking
 
-import dev.jesusgonzalez.kotlinproject.networking.dto.PokemonDetailsResponse
-import dev.jesusgonzalez.kotlinproject.networking.dto.PokemonListResponse
+import dev.jesusgonzalez.kotlinproject.networking.dto.PokemonTypeDetailsResponse
 import dev.jesusgonzalez.kotlinproject.networking.util.NetworkError
 import dev.jesusgonzalez.kotlinproject.networking.util.Result
 import io.ktor.client.call.body
@@ -10,11 +9,12 @@ import io.ktor.client.request.header
 import io.ktor.util.network.UnresolvedAddressException
 import kotlinx.serialization.SerializationException
 
-class PokemonClient() {
+class PokemonTypeClient() {
   val client = createHttpClient()
-  suspend fun getPokemonList(): Result<PokemonListResponse, NetworkError> {
+
+  suspend fun getPokemonTypes(id: Int): Result<PokemonTypeDetailsResponse, NetworkError> {
     val response = try {
-      client.get("https://pokeapi.co/api/v2/pokemon/?limit=9999") {
+      client.get("https://pokeapi.co/api/v2/type/$id") {
         header("Content-Type", "application/json")
       }
     } catch (e: UnresolvedAddressException) {
@@ -24,7 +24,7 @@ class PokemonClient() {
     }
     return when (response.status.value) {
       in 200..299 -> {
-        val result = response.body<PokemonListResponse>()
+        val result = response.body<PokemonTypeDetailsResponse>()
         Result.Success(result)
       }
 
@@ -36,9 +36,9 @@ class PokemonClient() {
     }
   }
 
-  suspend fun getPokemonDetails(id: Int): Result<PokemonDetailsResponse, NetworkError> {
+  suspend fun getPokemonTypesByUrl(url: String): Result<PokemonTypeDetailsResponse, NetworkError> {
     val response = try {
-      client.get("https://pokeapi.co/api/v2/pokemon/$id") {
+      client.get(url) {
         header("Content-Type", "application/json")
       }
     } catch (e: UnresolvedAddressException) {
@@ -48,7 +48,7 @@ class PokemonClient() {
     }
     return when (response.status.value) {
       in 200..299 -> {
-        val result = response.body<PokemonDetailsResponse>()
+        val result = response.body<PokemonTypeDetailsResponse>()
         Result.Success(result)
       }
 

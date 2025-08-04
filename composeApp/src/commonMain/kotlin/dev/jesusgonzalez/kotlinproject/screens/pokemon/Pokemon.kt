@@ -20,7 +20,6 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -34,11 +33,11 @@ import coil3.compose.AsyncImage
 import dev.jesusgonzalez.kotlinproject.navigation.PokemonDetails
 import dev.jesusgonzalez.kotlinproject.networking.PokemonClient
 import dev.jesusgonzalez.kotlinproject.networking.dto.PokemonListResponse
-import dev.jesusgonzalez.kotlinproject.util.NetworkError
-import dev.jesusgonzalez.kotlinproject.util.Result
+import dev.jesusgonzalez.kotlinproject.networking.util.NetworkError
+import dev.jesusgonzalez.kotlinproject.networking.util.Result
+import dev.jesusgonzalez.kotlinproject.theme.Paddings
 import kotlinproject.composeapp.generated.resources.Res
 import kotlinproject.composeapp.generated.resources.pokemon_icon
-import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.painterResource
 
 @Composable
@@ -49,15 +48,12 @@ fun Pokemon(navController: NavController) {
     )
   }
   var isLoading by remember { mutableStateOf(false) }
-  val scope = rememberCoroutineScope()
   val clientHttp = remember { PokemonClient() }
 
   LaunchedEffect(true) {
     isLoading = true
-    scope.launch {
-      pokemonListResult = clientHttp.getPokemonList()
-      isLoading = false
-    }
+    pokemonListResult = clientHttp.getPokemonList()
+    isLoading = false
   }
 
   Column(
@@ -65,7 +61,7 @@ fun Pokemon(navController: NavController) {
       .fillMaxSize()
   ) {
     Box(
-      modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp)
+      modifier = Modifier.fillMaxWidth().padding(vertical = Paddings.medium)
         .background(MaterialTheme.colorScheme.background),
       contentAlignment = Alignment.Center
     ) {
@@ -73,7 +69,7 @@ fun Pokemon(navController: NavController) {
         text = "POKEMON",
         style = MaterialTheme.typography.titleLarge,
         color = MaterialTheme.colorScheme.onBackground,
-        modifier = Modifier.padding(8.dp)
+        modifier = Modifier.padding(Paddings.medium)
       )
     }
 
@@ -92,17 +88,17 @@ fun Pokemon(navController: NavController) {
         if (pokemonList.isNotEmpty()) {
           LazyVerticalGrid(
             columns = GridCells.Fixed(2),
-            modifier = Modifier.padding(top = 16.dp)
+            modifier = Modifier.padding(top = Paddings.large)
           ) {
             items(pokemonList.size) { pokemonItem ->
               Column(
                 modifier = Modifier
                   .padding(8.dp)
                   .clip(
-                    RoundedCornerShape(8.dp)
+                    RoundedCornerShape(Paddings.medium)
                   )
                   .background(MaterialTheme.colorScheme.secondary)
-                  .padding(8.dp)
+                  .padding(Paddings.medium)
                   .clickable(
                     onClick = {
                       navController.navigate(PokemonDetails(pokemonItem + 1))
@@ -123,11 +119,12 @@ fun Pokemon(navController: NavController) {
                   color = MaterialTheme.colorScheme.onSecondary,
                 )
                 Box(
-                  modifier = Modifier.align(Alignment.CenterHorizontally).padding(top = 8.dp)
+                  modifier = Modifier.align(Alignment.CenterHorizontally)
+                    .padding(top = Paddings.medium)
                 ) {
                   Box(
                     modifier = Modifier
-                      .size(200.dp)
+                      .size(150.dp)
                       .clip(CircleShape) // Apply clipping with rounded corners
                       .background(MaterialTheme.colorScheme.primary)
                       .align(Alignment.Center)

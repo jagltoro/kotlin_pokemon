@@ -1,5 +1,6 @@
 package dev.jesusgonzalez.kotlinproject.networking.dto
 
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -29,7 +30,8 @@ data class PokemonDetailsResponse(
 
 @Serializable
 data class PokemonStats(
-  val base_stat: Int,
+  @SerialName("base_stat")
+  val baseStat: Int,
   val effort: Int,
   val stat: PokemonStat
 )

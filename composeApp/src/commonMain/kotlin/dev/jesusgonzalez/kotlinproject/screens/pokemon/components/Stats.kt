@@ -1,10 +1,11 @@
 package dev.jesusgonzalez.kotlinproject.screens.pokemon.components
 
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -12,29 +13,43 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import dev.jesusgonzalez.kotlinproject.networking.dto.PokemonStats
+import dev.jesusgonzalez.kotlinproject.theme.Paddings
 
 @Composable
 
 fun PokemonStats(stats: List<PokemonStats>) {
-  LazyColumn(
-    contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp),
-    verticalArrangement = Arrangement.spacedBy(8.dp)
-  ) {
-    items(stats.size) { statItem ->
+
+  stats.forEach { it ->
+    Box(
+      modifier = Modifier.padding(
+        bottom = Paddings.small,
+        start = Paddings.medium,
+        end = Paddings.medium
+      )
+    ) {
       Row(
-        horizontalArrangement = Arrangement.spacedBy(8.dp),
+        horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
       ) {
         Text(
-          text = stats[statItem].stat.name.replaceFirstChar { if (it.isLowerCase()) it.titlecase() else it.toString() },
-          style = MaterialTheme.typography.bodyLarge,
+          text = it.stat.name.replaceFirstChar { if (it.isLowerCase()) it.titlecase() else it.toString() },
+          style = MaterialTheme.typography.bodyMedium,
           color = MaterialTheme.colorScheme.onSecondary,
           modifier = Modifier.fillMaxWidth(0.5f)
         )
-        ProgressBar(
-          progress = stats[statItem].base_stat / 100f,
-          height = 10.dp
-        )
+        Column(
+          horizontalAlignment = Alignment.End
+        ) {
+          ProgressBar(
+            progress = it.baseStat / 255f,
+            height = 12.dp
+          )
+          Text(
+            text = "${it.baseStat}/255",
+            style = MaterialTheme.typography.bodySmall,
+            color = MaterialTheme.colorScheme.inverseOnSurface,
+          )
+        }
       }
     }
   }

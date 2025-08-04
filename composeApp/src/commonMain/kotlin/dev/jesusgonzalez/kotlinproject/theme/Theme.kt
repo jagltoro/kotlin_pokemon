@@ -105,6 +105,6 @@ fun Theme(
   MaterialTheme(
     content = content,
     colorScheme = if (isDarkTheme) darkScheme else lightScheme,
-    typography = Typography
+    typography = Typography,
   )
 }
