@@ -14,7 +14,8 @@ data class NamedAPIResource(
 data class PokemonTypeDetailsResponse(
   val name: String,
   @SerialName("damage_relations")
-  val damageRelations: DamageRelations
+  val damageRelations: DamageRelations,
+  val pokemon: List<PokemonListFromType>
 )
 
 @Serializable
@@ -31,4 +32,10 @@ data class DamageRelations(
   val noDamageFrom: List<NamedAPIResource>,
   @SerialName("no_damage_to")
   val noDamageTo: List<NamedAPIResource>
+)
+
+@Serializable
+data class PokemonListFromType(
+  val pokemon: PokemonListItem,
+  val slot: Int
 )

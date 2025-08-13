@@ -1,10 +1,17 @@
 package dev.jesusgonzalez.kotlinproject.util
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import dev.jesusgonzalez.kotlinproject.theme.Paddings
 import kotlinproject.composeapp.generated.resources.Res
 import kotlinproject.composeapp.generated.resources.bug
@@ -59,6 +66,25 @@ fun TypeIcon(name: String) {
   Icon(
     painter = painterResource(drawableRes),
     contentDescription = name,
-    modifier = Modifier.padding(end = Paddings.medium).size(Paddings.xLarge)
+    modifier = Modifier.padding(end = Paddings.medium).size(Paddings.xLarge),
   )
+}
+
+@Composable
+fun IconWithText(text: String) {
+  Row(
+    modifier = Modifier
+      .padding(horizontal = Paddings.medium)
+      .clip(RoundedCornerShape(Paddings.small))
+      .background(getColorByType(text))
+      .padding(Paddings.medium),
+    verticalAlignment = Alignment.CenterVertically
+  ) {
+    TypeIcon(text)
+    Text(
+      text = text.replaceFirstChar { if (it.isLowerCase()) it.titlecase() else it.toString() },
+      style = MaterialTheme.typography.bodyMedium,
+      color = MaterialTheme.colorScheme.onTertiary,
+    )
+  }
 }

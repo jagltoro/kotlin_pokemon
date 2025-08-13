@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
@@ -34,6 +33,7 @@ import dev.jesusgonzalez.kotlinproject.networking.util.NetworkError
 import dev.jesusgonzalez.kotlinproject.networking.util.Result
 import dev.jesusgonzalez.kotlinproject.screens.pokemon.components.DamageRelation
 import dev.jesusgonzalez.kotlinproject.screens.pokemon.components.PokemonColorBg
+import dev.jesusgonzalez.kotlinproject.screens.pokemon.components.PokemonEvolutions
 import dev.jesusgonzalez.kotlinproject.screens.pokemon.components.PokemonStats
 import dev.jesusgonzalez.kotlinproject.screens.pokemon.components.PokemonType
 import kotlinproject.composeapp.generated.resources.Res
@@ -44,7 +44,6 @@ import org.jetbrains.compose.resources.painterResource
 
 fun PokemonDetails(id: Int) {
 
-  val scrollState = rememberScrollState()
   var pokemonDetailsResult: Result<PokemonDetailsResponse, NetworkError>? by remember {
     mutableStateOf(
       null
@@ -100,7 +99,7 @@ fun PokemonDetails(id: Int) {
                 )
               )
               .background(MaterialTheme.colorScheme.secondary)
-              .padding(top = 50.dp),
+              .padding(vertical = 50.dp),
             horizontalAlignment = Alignment.CenterHorizontally
           ) {
             item {
@@ -119,6 +118,9 @@ fun PokemonDetails(id: Int) {
             }
             item {
               DamageRelation(pokemonDetails.types)
+            }
+            item {
+              PokemonEvolutions(pokemonDetails.species.url)
             }
           }
         }

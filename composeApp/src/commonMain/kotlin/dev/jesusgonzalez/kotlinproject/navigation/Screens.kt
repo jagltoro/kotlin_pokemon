@@ -18,6 +18,9 @@ data class PokemonDetails(val id: Int)
 object Types
 
 @Serializable
+data class TypeDetailsRoute(val id: Int)
+
+@Serializable
 object Items
 
 @Serializable

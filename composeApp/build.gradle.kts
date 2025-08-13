@@ -38,6 +38,7 @@ kotlin {
       implementation(libs.androidx.activity.compose)
 
       implementation(libs.ktor.client.okhttp)
+      implementation(libs.androidx.core.splashscreen)
     }
     commonMain.dependencies {
       implementation(compose.runtime)

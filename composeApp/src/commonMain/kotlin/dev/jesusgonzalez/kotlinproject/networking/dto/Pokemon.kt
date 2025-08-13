@@ -25,7 +25,8 @@ data class PokemonDetailsResponse(
   val weight: Int,
   val sprites: PokemonSprites,
   val types: List<PokemonTypes>,
-  val stats: List<PokemonStats>
+  val stats: List<PokemonStats>,
+  val species: PokemonSpecie
 )
 
 @Serializable
@@ -38,6 +39,12 @@ data class PokemonStats(
 
 @Serializable
 data class PokemonStat(
+  val name: String,
+  val url: String
+)
+
+@Serializable
+data class PokemonSpecie(
   val name: String,
   val url: String
 )

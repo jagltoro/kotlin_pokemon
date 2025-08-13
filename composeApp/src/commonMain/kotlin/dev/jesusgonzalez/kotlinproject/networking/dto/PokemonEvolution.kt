@@ -11,7 +11,7 @@ data class PokemonEvolutionResponse(
 
 @Serializable
 data class EvolutionChain(
-  @SerialName("isBaby")
+  @SerialName("is_baby")
   val isBaby: Boolean,
   val species: Species,
   @SerialName("evolves_to")
@@ -23,7 +23,7 @@ data class EvolutionChain(
 @Serializable
 data class EvolutionDetails(
   @SerialName("min_level")
-  val minLevel: Int
+  val minLevel: Int?
 )
 
 @Serializable
