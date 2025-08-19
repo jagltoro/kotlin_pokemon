@@ -1,5 +1,6 @@
 package dev.jesusgonzalez.kotlinproject.networking
 
+import dev.jesusgonzalez.kotlinproject.BuildProps
 import dev.jesusgonzalez.kotlinproject.networking.dto.PokemonSpeciesResponse
 import dev.jesusgonzalez.kotlinproject.networking.util.NetworkError
 import dev.jesusgonzalez.kotlinproject.networking.util.Result
@@ -14,7 +15,7 @@ class SpeciesClient() {
 
   suspend fun getPokemonSpecies(id: Int): Result<PokemonSpeciesResponse, NetworkError> {
     val response = try {
-      client.get("https://pokeapi.co/api/v2/pokemon-species/$id") {
+      client.get("${BuildProps.apiurl}/pokemon-species/$id") {
         header("Content-Type", "application/json")
       }
     } catch (e: UnresolvedAddressException) {

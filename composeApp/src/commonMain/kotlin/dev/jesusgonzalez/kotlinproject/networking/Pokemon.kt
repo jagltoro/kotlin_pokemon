@@ -1,5 +1,6 @@
 package dev.jesusgonzalez.kotlinproject.networking
 
+import dev.jesusgonzalez.kotlinproject.BuildProps
 import dev.jesusgonzalez.kotlinproject.networking.dto.PokemonDetailsResponse
 import dev.jesusgonzalez.kotlinproject.networking.dto.PokemonListResponse
 import dev.jesusgonzalez.kotlinproject.networking.util.NetworkError
@@ -14,7 +15,7 @@ class PokemonClient() {
   val client = createHttpClient()
   suspend fun getPokemonList(): Result<PokemonListResponse, NetworkError> {
     val response = try {
-      client.get("https://pokeapi.co/api/v2/pokemon/?limit=9999") {
+      client.get("${BuildProps.apiurl}/pokemon/?limit=9999") {
         header("Content-Type", "application/json")
       }
     } catch (e: UnresolvedAddressException) {
@@ -38,7 +39,7 @@ class PokemonClient() {
 
   suspend fun getPokemonDetails(id: Int): Result<PokemonDetailsResponse, NetworkError> {
     val response = try {
-      client.get("https://pokeapi.co/api/v2/pokemon/$id") {
+      client.get("${BuildProps.apiurl}/pokemon/$id") {
         header("Content-Type", "application/json")
       }
     } catch (e: UnresolvedAddressException) {

@@ -1,5 +1,6 @@
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import java.util.Properties
 
 plugins {
   alias(libs.plugins.kotlinMultiplatform)
@@ -66,6 +67,40 @@ kotlin {
       implementation(libs.ktor.client.darwin)
     }
   }
+}
+
+tasks.register("generateSecretsClass") {
+  val outputFile =
+    File("$projectDir/src/commonMain/kotlin/dev/jesusgonzalez/kotlinproject/BuildProps.kt")
+  val inputFile =
+    rootProject.file("secrets.properties")
+  doLast {
+    if (inputFile.exists()) {
+      val properties = Properties()
+      inputFile.inputStream().use { properties.load(it) }
+      print(outputFile.absolutePath)
+      outputFile.parentFile.mkdirs()
+      val propertiesString =
+        properties.entries.joinToString(separator = "\n          ") { (key, value) ->
+          val propKey = key.toString()
+          val propValue = value.toString()
+          "val ${propKey.lowercase().replace("_", "")} : String = \"${propValue}\""
+        }
+
+      outputFile.writeText(
+        """
+        package dev.jesusgonzalez.kotlinproject
+
+        object BuildProps {
+          ${propertiesString.trim()}
+        }
+        """.trimIndent() + "\n"
+      )
+    }
+  }
+}
+tasks.named("generateComposeResClass") {
+  dependsOn("generateSecretsClass")
 }
 
 android {

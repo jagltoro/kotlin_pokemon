@@ -1,5 +1,6 @@
 package dev.jesusgonzalez.kotlinproject.networking
 
+import dev.jesusgonzalez.kotlinproject.BuildProps
 import dev.jesusgonzalez.kotlinproject.networking.dto.PokemonEvolutionResponse
 import dev.jesusgonzalez.kotlinproject.networking.util.NetworkError
 import dev.jesusgonzalez.kotlinproject.networking.util.Result
@@ -14,7 +15,7 @@ class EvolutionClient() {
 
   suspend fun getPokemonEvolutions(id: Int): Result<PokemonEvolutionResponse, NetworkError> {
     val response = try {
-      client.get("https://pokeapi.co/api/v2/evolution-chain/$id") {
+      client.get("${BuildProps.apiurl}/evolution-chain/$id") {
         header("Content-Type", "application/json")
       }
     } catch (e: UnresolvedAddressException) {

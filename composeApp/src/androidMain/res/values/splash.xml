@@ -4,6 +4,7 @@
     <style name="Theme.App.Starting" parent="Theme.SplashScreen">
         <item name="windowSplashScreenBackground">#202020</item>
         <item name="windowSplashScreenAnimatedIcon">@drawable/ic_logo</item>
+        <item name="android:theme">@android:style/Theme.Material.NoActionBar</item>
         <item name="postSplashScreenTheme">@android:style/Theme.Material.NoActionBar
         </item> <!-- Or your main app theme -->
     </style>
